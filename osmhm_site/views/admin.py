@@ -16,13 +16,13 @@ from ..models import (
     User,
 )
 
-@view_config(route_name='admin', renderer='osmhm:templates/admin.mako',
+@view_config(route_name='admin', renderer='osmhm_site:templates/admin.mako',
              permission='edit_user_or_object')
 def admin(request):
     
     return dict(page_id='admin')
 
-@view_config(route_name='admin_user_list', renderer='osmhm:templates/admin_user_list.mako',
+@view_config(route_name='admin_user_list', renderer='osmhm_site:templates/admin_user_list.mako',
              permission='super_admin')
 def admin_user_list(request):
 	users = DBSession.query(User).all()

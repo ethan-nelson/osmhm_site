@@ -24,7 +24,7 @@ from ..models import (
     Whitelist,
 )
 
-@view_config(route_name='watch', renderer='osmhm:templates/watch.mako')
+@view_config(route_name='watch', renderer='osmhm_site:templates/watch.mako')
 def watch(request):
 	try:
 		history = DBSession.query(History).order_by(desc(History.changeset)).all()
@@ -43,7 +43,7 @@ def watch_list(request):
 
 	return HTTPFound(location=route_path('admin',request))
 
-@view_config(route_name='watch_whitelist', renderer='osmhm:templates/watch_whitelist.mako', permission='edit_user_or_object')
+@view_config(route_name='watch_whitelist', renderer='osmhm_site:templates/watch_whitelist.mako', permission='edit_user_or_object')
 def watch_whitelist(request):
     try:
         users = DBSession.query(Whitelist).all()
@@ -53,7 +53,7 @@ def watch_whitelist(request):
         users = None
     return dict(page_id='watch_whitelist', users=users)
 
-@view_config(route_name='watch_whitelist_add', renderer='osmhm:templates/admin_whitelist_add.mako', permission='edit_user_or_object')
+@view_config(route_name='watch_whitelist_add', renderer='osmhm_site:templates/admin_whitelist_add.mako', permission='edit_user_or_object')
 def watch_whitelist_add(request):
     if request.method == 'POST':
         userid = authenticated_userid(request)

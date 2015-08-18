@@ -9,7 +9,7 @@ from ..models import (
     )
 
 
-@view_config(route_name='home', renderer='osmhm:templates/home.mako')
+@view_config(route_name='home', renderer='osmhm_site:templates/home.mako')
 def my_view(request):
 
     return dict(page_id="home")

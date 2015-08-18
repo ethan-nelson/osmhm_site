@@ -18,7 +18,7 @@ from ..models import (
     User,
 )
 
-@view_config(route_name='user_watch', renderer='osmhm:templates/user_watch.mako',
+@view_config(route_name='user_watch', renderer='osmhm_site:templates/user_watch.mako',
              permission='watch_user_or_object')
 def user_watch(request):
 	try:
@@ -30,7 +30,7 @@ def user_watch(request):
 		history = None
 	return dict(page_id='user_watch', history=history, update_time=filetime.timestamp)
 
-@view_config(route_name='user_watch_list', renderer='osmhm:templates/user_watch_list.mako',
+@view_config(route_name='user_watch_list', renderer='osmhm_site:templates/user_watch_list.mako',
              permission='watch_user_or_object')
 def user_watch_list(request):
 	try:
@@ -41,7 +41,7 @@ def user_watch_list(request):
 		users = None
 	return dict(page_id='user_watch_list', users=users)
 
-@view_config(route_name='user_watch_add', renderer='osmhm:templates/admin_user_list_add.mako',
+@view_config(route_name='user_watch_add', renderer='osmhm_site:templates/admin_user_list_add.mako',
              permission='edit_user_or_object')
 def user_watch_add(request):
 
