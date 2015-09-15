@@ -9,10 +9,6 @@ from pyramid.httpexceptions import (
 
 from ..models import (
     DBSession,
-    History,
-    Users,
-    Objects,
-    Filetime,
     User,
 )
 

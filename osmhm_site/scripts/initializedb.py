@@ -14,12 +14,15 @@ from pyramid.scripts.common import parse_vars
 from ..models import (
     DBSession,
     Base,
-    History,
-    Users,
-    UserHistory,
-    Objects,
-    ObjectHistory,
-    Filetime,
+    History_Filters,
+    Watched_Users,
+    History_Users,
+    Watched_Objects,
+    History_Objects,
+    Whitelisted_Users,
+    UnblockedUsers,
+    BlockedUsers,
+    File_List,
     User,
     )
 
@@ -42,5 +45,5 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-		filetime = Filetime(sequencenumber=24452,timestamp='2015-06-28T03:00:00Z',readflag=False)
+		filetime = File_List(sequence=24452,timestamp='2015-06-28T03:00:00Z',read=False)
 		DBSession.add(filetime)

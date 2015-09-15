@@ -9,12 +9,9 @@ from sqlalchemy import desc
 
 from ..models import (
     DBSession,
-    History,
-    Users,
-    UserHistory,
-    Objects,
-    ObjectHistory,
-    Filetime,
+    Watched_Objects,
+    History_Objects,
+    File_List,
     User,
 )
 
@@ -22,8 +19,8 @@ from ..models import (
              permission='watch_user_or_object')
 def object_watch(request):
 	try:
-		history = DBSession.query(ObjectHistory).order_by(desc(ObjectHistory.changeset)).all()
-		filetime = DBSession.query(Filetime).first()
+		history = DBSession.query(History_Objects).order_by(desc(History_Objects.changeset)).all()
+		filetime = DBSession.query(File_List).first()
 	except DBAPIError:
 		print 'Sorry'
 	if not history:
@@ -35,7 +32,7 @@ def object_watch(request):
              permission='watch_user_or_object')
 def object_watch_list(request):
 	try:
-		objects = DBSession.query(Objects).all()
+		objects = DBSession.query(Watched_Objects).all()
 	except DBAPIError:
 		print 'Sorry'
 	if not objects:
@@ -50,9 +47,9 @@ def object_watch_add(request):
         userid = authenticated_userid(request)
         if userid:
             user = DBSession.query(User).get(userid)
-            objectToAdd = Objects(author=user.username,
-                                  number=request.POST.getone('addobjectname'),
-                                  note=request.POST.getone('addreason'),
+            objectToAdd = Watched_Objects(author=user.username,
+                                  element=request.POST.getone('addobjectname'),
+                                  reason=request.POST.getone('addreason'),
                                   email=request.POST.getone('addnotify'))
     
             DBSession.add(objectToAdd)
@@ -67,8 +64,8 @@ def object_watch_add(request):
 
 @view_config(route_name='object_watch_delete', permission='edit_user_or_object')
 def object_watch_delete(request):
-    objectToDelete = DBSession.query(Objects).get(request.matchdict['id'])
-    eventsToDelete = DBSession.query(ObjectHistory).filter_by(objectid=objectToDelete.number).delete()
+    objectToDelete = DBSession.query(Watched_Objects).get(request.matchdict['id'])
+    eventsToDelete = DBSession.query(History_Objects).filter_by(element=objectToDelete.element).delete()
     DBSession.delete(objectToDelete)
     DBSession.flush()
 

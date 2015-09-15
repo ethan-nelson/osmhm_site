@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OpenStreetMap Hall Monitor</title>
 
-    <script src="${request.static_url('osmhm:static/js/jquery-1.11.3.min.js')}"></script>
-    <script src="${request.static_url('osmhm:static/twbs/js/bootstrap.min.js')}"></script>
+    <script src="${request.static_url('osmhm_site:static/js/jquery-1.11.3.min.js')}"></script>
+    <script src="${request.static_url('osmhm_site:static/twbs/js/bootstrap.min.js')}"></script>
 
-	<link href="${request.static_url('osmhm:static/twbs/css/bootstrap.css')}" rel="stylesheet">
-	<link href="${request.static_url('osmhm:static/css/dashboard.css')}" rel="stylesheet">
+	<link href="${request.static_url('osmhm_site:static/twbs/css/bootstrap.css')}" rel="stylesheet">
+	<link href="${request.static_url('osmhm_site:static/css/dashboard.css')}" rel="stylesheet">
 
     </head>
     <body>

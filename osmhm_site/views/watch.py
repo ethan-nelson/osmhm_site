@@ -16,19 +16,18 @@ from sqlalchemy import desc
 
 from ..models import (
     DBSession,
-    History,
-    Users,
+    History_Filters,
+    Watched_Users,
+    File_List,
+    Whitelisted_Users,
     User,
-    Objects,
-    Filetime,
-    Whitelist,
 )
 
 @view_config(route_name='watch', renderer='osmhm_site:templates/watch.mako')
 def watch(request):
 	try:
-		history = DBSession.query(History).order_by(desc(History.changeset)).all()
-		filetime = DBSession.query(Filetime).first()
+		history = DBSession.query(History_Filters).order_by(desc(History_Filters.changeset)).all()
+		filetime = DBSession.query(File_List).first()
 	except DBAPIError:
 		print 'Sorry'
 	if not history:
@@ -37,7 +36,7 @@ def watch(request):
 
 @view_config(route_name='watch_clear', permission='edit_user_or_object')
 def watch_list(request):
-	thedata = DBSession.query(History).delete()
+	thedata = DBSession.query(History_Filters).delete()
 
 	DBSession.flush()
 
@@ -46,7 +45,7 @@ def watch_list(request):
 @view_config(route_name='watch_whitelist', renderer='osmhm_site:templates/watch_whitelist.mako', permission='edit_user_or_object')
 def watch_whitelist(request):
     try:
-        users = DBSession.query(Whitelist).all()
+        users = DBSession.query(Whitelisted_Users).all()
     except DBAPIError:
         print 'Sorry'
     if not users:
@@ -59,7 +58,7 @@ def watch_whitelist_add(request):
         userid = authenticated_userid(request)
         if userid:
             user = DBSession.query(User).get(userid)
-            userToAdd = Whitelist(author=user.username,
+            userToAdd = Whitelisted_Users(author=user.username,
                                   username=request.POST.getone('addusername'),
                                   reason=request.POST.getone('addreason'))
 
@@ -73,7 +72,7 @@ def watch_whitelist_add(request):
 
 @view_config(route_name='watch_whitelist_delete', permission='edit_user_or_object')
 def watch_watchlist_delete(request):
-    userToDelete = DBSession.query(Whitelist).get(request.matchdict['id'])
+    userToDelete = DBSession.query(Whitelisted_Users).get(request.matchdict['id'])
     DBSession.delete(userToDelete)
     DBSession.flush()
 

@@ -25,56 +25,64 @@ from zope.sqlalchemy import ZopeTransactionExtension
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
-class History(Base):
-    __tablename__ = 'history'
-    id = Column(Integer, primary_key=True)
-    timestamp = Column(Text)
-    changeset = Column(Integer)
-    username = Column(Text)
-    flag = Column(Integer)
-    quantity = Column(Float)
+class History_Filters(Base):
+    __tablename__ = 'history_filters'
+    id = Column(Integer, primary_key=True, nullable=False)
+    flag = Column(Integer, nullable=False)
+    username = Column(Text, nullable=False)
+    changeset = Column(BigInteger, nullable=False)
+    timestamp = Column(Text, nullable=False)
+    quantity = Column(Text, nullable=False)
 
-class Users(Base):
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    username = Column(Text)
+class Watched_Users(Base):
+    __tablename__ = 'watched_users'
+    id = Column(Integer, primary_key=True, nullable=False)
+    user = Column(Text, nullable=False)
     reason = Column(Text)
     author = Column(Text)
     email = Column(Text)
 
-class UserHistory(Base):
-    __tablename__ = 'user_history'
-    id = Column(Integer, primary_key=True)
-    timestamp = Column(Text)
-    changeset = Column(Integer)
-    username = Column(Text)
-    added = Column(Float)
-    changed = Column(Float)
-    deleted = Column(Float)
+class History_Users(Base):
+    __tablename__ = 'history_users'
+    id = Column(Integer, primary_key=True, nullable=False)
+    username = Column(Text, nullable=False)
+    changeset = Column(BigInteger, nullable=False)
+    timestamp = Column(Text, nullable=False)
+    create = Column(BigInteger)
+    modify = Column(BigInteger)
+    delete = Column(BigInteger)
 
-class Objects(Base):
-    __tablename__ = 'objects'
-    id = Column(Integer, primary_key=True)
-    number = Column(Text)
-    note = Column(Text)
+class Watched_Objects(Base):
+    __tablename__ = 'watched_objects'
+    id = Column(Integer, primary_key=True, nullable=False)
+    element = Column(Text, nullable=False)
+    reason = Column(Text)
     author = Column(Text)
     email = Column(Text)
 
-class ObjectHistory(Base):
-    __tablename__ = 'object_history'
-    id = Column(Integer, primary_key=True)
-    timestamp = Column(Text)
-    changeset = Column(Integer)
-    username = Column(Text)
+class History_Objects(Base):
+    __tablename__ = 'history_objects'
+    id = Column(Integer, primary_key=True, nullable=False)
+    element = Column(Text, nullable=False)
+    username = Column(Text, nullable=False)
+    changeset = Column(BigInteger, nullable=False)
+    timestamp = Column(Text, nullable=False)
     action = Column(Text)
-    objectid = Column(Text)
 
-class Filetime(Base):
-	__tablename__ = 'filetime'
-	id = Column(Integer, primary_key=True)
-	sequencenumber = Column(Text)
+class File_List(Base):
+	__tablename__ = 'file_list'
+	id = Column(Integer, primary_key=True, nullable=False)
+	sequence = Column(Text)
 	timestamp = Column(Text)
-	readflag = Column(Boolean)
+	timetype = Column(Text)
+	read = Column(Boolean)
+
+class Whitelisted_Users(Base):
+    __tablename__ = 'whitelisted_users'
+    id = Column(Integer, primary_key=True, nullable=False)
+    username = Column(Text, nullable=False)
+    reason = Column(Text)
+    author = Column(Text)
 
 MEMBER = 1
 DWGMEMBER = 2
@@ -107,12 +115,6 @@ class User(Base):
     def is_dwg(self):
         return self.role is self.role_dwg
 
-class Whitelist(Base):
-    __tablename__ = 'whitelist'
-    id = Column(BigInteger, primary_key=True)
-    username = Column(Text)
-    reason = Column(Text)
-    author = Column(Text)
 
 class UnblockedUsers(Base):
     __tablename__ = 'unblocked_users'
@@ -129,11 +131,11 @@ class BlockedUsers(Base):
     enddate = Column(Text, nullable=True)
     reason = Column(Text)
 
-Index('history_index', History.id, unique=True)
-Index('users_index', Users.id, unique=True)
-Index('user_history_index', UserHistory.id, unique=True)
-Index('objects_index', Objects.id, unique=True)
-Index('object_history_index', ObjectHistory.id, unique=True)
-Index('whitelist_index', Whitelist.id, unique=True)
-Index('unblocked_user_index', UnblockedUsers.id, unique=True)
-Index('blocked_user_index', BlockedUsers.id, unique=True)
+#Index('history_index', History_Filters.id, unique=True)
+#Index('users_index', Watched_Users.id, unique=True)
+#Index('user_history_index', History_Users.id, unique=True)
+#Index('objects_index', Watched_Objects.id, unique=True)
+#Index('object_history_index', History_Objects.id, unique=True)
+#Index('whitelist_index', Whitelisted_Users.id, unique=True)
+#Index('unblocked_user_index', UnblockedUsers.id, unique=True)
+#Index('blocked_user_index', BlockedUsers.id, unique=True)
