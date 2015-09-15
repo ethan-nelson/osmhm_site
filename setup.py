@@ -22,6 +22,8 @@ requires = [
     'simplejson',
     'datetime',
     'oauth2',
+    'osmdt',
+    'osmhm',
     ]
 
 setup(name='osmhm_site',

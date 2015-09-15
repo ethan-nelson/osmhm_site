@@ -6,9 +6,6 @@ Introduction
 
 OpenStreetMap Hall Monitor (OSMHM) is a passive monitoring tool for OpenStreetMap. It boasts a suite of filters, including vandalism/spam/unauthorized import detection. OSMHM works by downloading and scanning hourly diff files from OSM.
 
-`osmhm/` contains the Pyramid web application framework.
-`hallmonitor/` contains the OSMHM processor.
-
 A Procfile is included for easy deployment to Heroku.
 
 
@@ -27,4 +24,4 @@ Note: Python and the virtualenv package are required.
 
 - env/bin/pserve development.ini
 
-
+Dependencies include [OSM Diff Tool](https://github.com/ethan-nelson/osm_diff_tool) and [OSM Hall Monitor](https://github.com/ethan-nelson/osm_hall_monitor).
