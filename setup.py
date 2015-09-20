@@ -20,10 +20,9 @@ requires = [
     'waitress',
     'psycopg2',
     'simplejson',
-    'datetime',
     'oauth2',
-    'osmdt',
-    'osmhm',
+    'osm_diff_tool',
+    'osm_hall_monitor',
     ]
 
 setup(name='osmhm_site',
@@ -45,6 +44,7 @@ setup(name='osmhm_site',
       zip_safe=False,
       test_suite='osmhm',
       install_requires=requires,
+      dependency_links = ['http://github.com/ethan-nelson/osm_hall_monitor/tarball/master#egg=osm_hall_monitor'],
       entry_points="""\
       [paste.app_factory]
       main = osmhm_site:main

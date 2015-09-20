@@ -37,7 +37,7 @@ class History_Filters(Base):
 class Watched_Users(Base):
     __tablename__ = 'watched_users'
     id = Column(Integer, primary_key=True, nullable=False)
-    user = Column(Text, nullable=False)
+    username = Column(Text, nullable=False)
     reason = Column(Text)
     author = Column(Text)
     email = Column(Text)
@@ -48,9 +48,9 @@ class History_Users(Base):
     username = Column(Text, nullable=False)
     changeset = Column(BigInteger, nullable=False)
     timestamp = Column(Text, nullable=False)
-    create = Column(BigInteger)
-    modify = Column(BigInteger)
-    delete = Column(BigInteger)
+    created = Column(BigInteger)
+    modified = Column(BigInteger)
+    deleted = Column(BigInteger)
 
 class Watched_Objects(Base):
     __tablename__ = 'watched_objects'

@@ -11,7 +11,7 @@
     <td><a href="http://www.osm.org/changeset/${event.changeset}" target="_blank">${event.changeset}</a></td>
     <td><a href="http://www.osm.org/user/${event.username}" target="_blank">${event.username}</a></td>
     <td>${event.action}</td>
-    <td>${event.objectid}</td></tr>
+    <td>${event.element}</td></tr>
 % endfor
 </table>
 % else:

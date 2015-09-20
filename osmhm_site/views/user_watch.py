@@ -23,8 +23,9 @@ def user_watch(request):
 		filetime = DBSession.query(File_List).first()
 	except DBAPIError:
 		print 'Sorry'
-	if not history:
-		history = None
+#        history = None
+#	if not history:
+#		history = None
 	return dict(page_id='user_watch', history=history, update_time=filetime.timestamp)
 
 @view_config(route_name='user_watch_list', renderer='osmhm_site:templates/user_watch_list.mako',
@@ -32,10 +33,14 @@ def user_watch(request):
 def user_watch_list(request):
 	try:
 		users = DBSession.query(Watched_Users).all()
-	except DBAPIError:
+	except:
 		print 'Sorry'
-	if not users:
-		users = None
+#	except DBAPIError:
+#		print 'Sorry'
+#        users = None
+#	if not users:
+#		users = None
+
 	return dict(page_id='user_watch_list', users=users)
 
 @view_config(route_name='user_watch_add', renderer='osmhm_site:templates/admin_user_list_add.mako',

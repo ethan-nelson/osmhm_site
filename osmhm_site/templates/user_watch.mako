@@ -10,8 +10,8 @@
 	<tr><td>${event.timestamp}</td>
     <td><a href="http://www.osm.org/changeset/${event.changeset}" target="_blank">${event.changeset}</a></td>
     <td><a href="http://www.osm.org/user/${event.username}" target="_blank">${event.username}</a></td>
-    <td>${event.added}</td>
-    <td>${event.changed}</td>
+    <td>${event.created}</td>
+    <td>${event.modified}</td>
     <td>${event.deleted}</td></tr>
 % endfor
 </table>
