@@ -28,6 +28,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="${request.route_path('history')}">Full History</a></li>
             <li><a href="${request.route_path('watch')}">Watch list</a></li>
             % if user and (user.is_dwg or user.is_admin or user.is_owner):
             <li><a href="${request.route_path('user_watch')}">User watch list</a></li>
@@ -60,9 +61,12 @@
             <li><a href="${request.route_path('watch_whitelist_add')}">Add a whitelisted user</a></li>
 			% elif page_id is 'watch':
 			<li>Flags:</li>
-			<li>1: Skewed ratio of add to delete</li>
-			<li>2: Added > 1500 nodes</li>
+			<li>1: Added > 1500 objects</li>
+            <li>2: Modified > 1500 objects</li>
 			<li>3: Deleted > 1500 objects</li>
+            <li>4: Actions > 1500</li>
+            <li>5: High fraction of deletions</li>
+            <li>6: High fraction of modifications</li>
 			<br />
             <li><a href="${request.route_path('watch_whitelist')}">Users on whitelist</a></li>
             % endif

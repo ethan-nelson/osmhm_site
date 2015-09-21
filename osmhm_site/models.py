@@ -25,6 +25,16 @@ from zope.sqlalchemy import ZopeTransactionExtension
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
+class History(Base):
+    __tablename__ = 'history_all_changesets'
+    id = Column(Integer, primary_key=True, nullable=False)
+    changeset = Column(Text, nullable=False)
+    username = Column(Text, nullable=False)
+    timestamp = Column(Text, nullable=False)
+    created = Column(Text)
+    modified = Column(Text)
+    deleted = Column(Text)
+
 class History_Filters(Base):
     __tablename__ = 'history_filters'
     id = Column(Integer, primary_key=True, nullable=False)

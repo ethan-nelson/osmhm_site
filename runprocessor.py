@@ -1,5 +1,5 @@
 import osmhm
 
-osmhm.run()
+osmhm.run(history=False)
 
 print 'Processor stopped.'

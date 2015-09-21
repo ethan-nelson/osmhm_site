@@ -35,6 +35,8 @@ def main(global_config, **settings):
 	config.include('pyramid_mako')
 	config.add_static_view('static', 'static', cache_max_age=3600)
 	config.add_route('home', '/')
+	config.add_route('history', '/history')
+	config.add_route('history_clear', '/history/clear')
 	config.add_route('watch', '/watch')
 	config.add_route('watch_whitelist', '/watch/whitelist')
 	config.add_route('watch_whitelist_add', '/watch/whitelist/add')
