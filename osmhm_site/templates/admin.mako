@@ -14,7 +14,9 @@
 <p><a href="${request.route_path('object_watch_list')}">View the objects being tracked</a></p>
 <p><a href="${request.route_path('object_watch_add')}">Add an object to be tracked</a></p><br />
 <p><a href="${request.route_path('user_watch_list')}">View the users being tracked</a></p>
-<p><a href="${request.route_path('user_watch_add')}">Add a user to be tracked</a></p>
+<p><a href="${request.route_path('user_watch_add')}">Add a user to be tracked</a></p><br />
+<p><a href="${request.route_path('key_watch_list')}">View the keys being tracked</a></p>
+<p><a href="${request.route_path('key_watch_add')}">Add a key to be tracked</a></p><br/>
 
 
 </%block>

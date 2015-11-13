@@ -33,6 +33,7 @@
             % if user and (user.is_dwg or user.is_admin or user.is_owner):
             <li><a href="${request.route_path('user_watch')}">User watch list</a></li>
             <li><a href="${request.route_path('object_watch')}">Object watch list</a></li>
+            <li><a href="${request.route_path('key_watch')}">Key watch list</a></li>
             <li><a href="${request.route_path('admin')}">Admin panel</a></li>
             % endif
             % if user:
@@ -57,6 +58,10 @@
             <li><a href="${request.route_path('object_watch_list')}">Objects on list</a></li>
             % elif page_id is 'object_watch_list':
             <li><a href="${request.route_path('object_watch_add')}">Add an object</a></li>
+            % elif page_id is ('key_watch' or 'key_watch_add'):
+            <li><a href="${request.route_path('key_watch_list')}">Keys on list</a></li>
+            % elif page_id is 'key_watch_list':
+            <li><a href="${request.route_path('key_watch_add')}">Add a key</a></li>
             % elif page_id is 'watch_whitelist':
             <li><a href="${request.route_path('watch_whitelist_add')}">Add a whitelisted user</a></li>
 			% elif page_id is 'watch':

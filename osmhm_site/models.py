@@ -79,6 +79,25 @@ class History_Objects(Base):
     timestamp = Column(Text, nullable=False)
     action = Column(Text)
 
+class Watched_Keys(Base):
+    __tablename__ = 'watched_keys'
+    id = Column(Integer, primary_key=True, nullable=False)
+    key = Column(Text, nullable=False)
+    value = Column(Text, nullable=False)
+    reason = Column(Text)
+    author = Column(Text)
+    email = Column(Text)
+
+class History_Keys(Base):
+    __tablename__ = 'history_keys'
+    id = Column(Integer, primary_key=True, nullable=False)
+    key = Column(Text, nullable=False)
+    value = Column(Text, nullable=False)
+    username = Column(Text, nullable=False)
+    changeset = Column(BigInteger, nullable=False)
+    timestamp = Column(Text, nullable=False)
+    action = Column(Text)
+
 class File_List(Base):
 	__tablename__ = 'file_list'
 	id = Column(Integer, primary_key=True, nullable=False)
