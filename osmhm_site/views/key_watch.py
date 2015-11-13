@@ -36,6 +36,13 @@ def key_watch_event_delete(request):
     return HTTPFound(location=request.route_path('key_watch'))
 
 
+@view_config(route_name='key_watch_clear', permission='edit_user_or_object')
+def key_watch_clear(request):
+    DBSession.query(History_Keys).delete()
+    DBSession.flush()
+
+    return HTTPFound(location=request.route_path('key_watch'))
+
 @view_config(route_name='key_watch_list', renderer='osmhm_site:templates/key_watch_list.mako',
              permission='watch_user_or_object')
 def key_watch_list(request):

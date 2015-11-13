@@ -60,6 +60,7 @@
             <li><a href="${request.route_path('object_watch_add')}">Add an object</a></li>
             % elif page_id is ('key_watch' or 'key_watch_add'):
             <li><a href="${request.route_path('key_watch_list')}">Keys on list</a></li>
+            <li><a href="${request.route_path('key_watch_clear')}">Clear this log</a></li>
             % elif page_id is 'key_watch_list':
             <li><a href="${request.route_path('key_watch_add')}">Add a key</a></li>
             % elif page_id is 'watch_whitelist':
