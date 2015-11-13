@@ -28,6 +28,14 @@ def key_watch(request):
 	return dict(page_id='key_watch', history=history, update_time=filetime.timestamp)
 
 
+@view_config(route_name='key_watch_event_delete', permission='edit_user_or_object')
+def key_watch_event_delete(request):
+    DBSession.query(History_Keys).filter_by(id=request.matchdict['id']).delete()
+    DBSession.flush()
+
+    return HTTPFound(location=request.route_path('key_watch'))
+
+
 @view_config(route_name='key_watch_list', renderer='osmhm_site:templates/key_watch_list.mako',
              permission='watch_user_or_object')
 def key_watch_list(request):

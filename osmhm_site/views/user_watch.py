@@ -28,6 +28,13 @@ def user_watch(request):
 #		history = None
 	return dict(page_id='user_watch', history=history, update_time=filetime.timestamp)
 
+@view_config(route_name='user_watch_event_delete', permission='edit_user_or_object')
+def user_watch_event_delete(request):
+    DBSession.query(History_Users).filter_by(id=request.matchdict['id']).delete()
+    DBSession.flush()
+
+    return HTTPFound(location=request.route_path('user_watch'))
+
 @view_config(route_name='user_watch_list', renderer='osmhm_site:templates/user_watch_list.mako',
              permission='watch_user_or_object')
 def user_watch_list(request):
