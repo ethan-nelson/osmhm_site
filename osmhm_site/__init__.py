@@ -3,6 +3,7 @@ from sqlalchemy import engine_from_config
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.session import UnencryptedCookieSessionFactoryConfig
+from pyramid.httpexceptions import HTTPFound
 
 from .models import (
 	DBSession,
@@ -13,6 +14,12 @@ from .security import (
     RootFactory,
     group_membership,
 )
+
+from pyramid.view import forbidden_view_config
+
+@forbidden_view_config()
+def forbidden(request):
+    return HTTPFound(location=request.route_path('login'))
 
 def main(global_config, **settings):
 	engine = engine_from_config(settings, 'sqlalchemy.')
@@ -51,6 +58,7 @@ def main(global_config, **settings):
 	config.add_route('object_watch_add', '/object_watch/add')
 	config.add_route('object_watch_delete', '/object_watch/delete/{id}')
 	config.add_route('key_watch', '/key_watch')
+	config.add_route('key_watch_event_delete', '/key_watch_event/delete/{id}')
 	config.add_route('key_watch_list', '/key_watch/list')
 	config.add_route('key_watch_add', '/key_watch/add')
 	config.add_route('key_watch_delete', '/key_watch/delete/{id}')
