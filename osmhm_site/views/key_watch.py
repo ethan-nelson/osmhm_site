@@ -5,7 +5,7 @@ from pyramid.security import authenticated_userid
 
 from sqlalchemy.exc import DBAPIError
 
-from sqlalchemy import desc,and_
+from sqlalchemy import desc,and_,distinct,func
 
 from ..models import (
     DBSession,
@@ -19,7 +19,35 @@ from ..models import (
              permission='watch_user_or_object')
 def key_watch(request):
 	try:
-		history = DBSession.query(History_Keys).order_by(desc(History_Keys.changeset)).all()
+		full_history = DBSession.query(History_Keys).order_by(desc(History_Keys.changeset)).all()
+		history = DBSession.query(History_Keys).distinct(History_Keys.username, History_Keys.key, History_Keys.value).all()
+
+		changesets = {}
+		changeset_strs = {}
+		objects = {}
+		for event in full_history:
+			if event.username not in changeset_strs:
+				changesets[event.username] = {}
+				changeset_strs[event.username] = {}
+				objects[event.username] = {}
+			if event.key not in changeset_strs[event.username]:
+				changesets[event.username][event.key] = {}
+				changeset_strs[event.username][event.key] = {}
+				objects[event.username][event.key] = {}
+			if event.value not in changeset_strs[event.username][event.key]:
+				changesets[event.username][event.key][event.value] = []
+				changeset_strs[event.username][event.key][event.value] = ''
+				objects[event.username][event.key][event.value] = 0
+			if event.changeset not in changesets[event.username][event.key][event.value]:
+				changesets[event.username][event.key][event.value].append(event.changeset)
+				changeset_strs[event.username][event.key][event.value] += ('<a href="http://www.openstreetmap.org/changeset/%s" target="_blank">%s</a>, ' % (str(event.changeset), str(event.changeset)))
+			objects[event.username][event.key][event.value] += 1
+
+		for event in history:
+			event.changeset_count = len(changesets[event.username][event.key][event.value])
+			event.object_count = objects[event.username][event.key][event.value]
+			event.changesets = changeset_strs[event.username][event.key][event.value]
+
 		filetime = DBSession.query(File_List).first()
 	except DBAPIError:
 		print 'Sorry'
@@ -30,7 +58,7 @@ def key_watch(request):
 
 @view_config(route_name='key_watch_event_delete', permission='edit_user_or_object')
 def key_watch_event_delete(request):
-    DBSession.query(History_Keys).filter_by(id=request.matchdict['id']).delete()
+    DBSession.query(History_Keys).filter_by(username=request.matchdict['username'], key=request.matchdict['key'], value=request.matchdict['value']).delete()
     DBSession.flush()
 
     return HTTPFound(location=request.route_path('key_watch'))
