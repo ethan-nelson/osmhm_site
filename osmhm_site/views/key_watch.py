@@ -40,7 +40,7 @@ def key_watch(request):
 				objects[event.username][event.key][event.value] = 0
 			if event.changeset not in changesets[event.username][event.key][event.value]:
 				changesets[event.username][event.key][event.value].append(event.changeset)
-				changeset_strs[event.username][event.key][event.value] += ('<a href="http://www.openstreetmap.org/changeset/%s" target="_blank">%s</a>, ' % (str(event.changeset), str(event.changeset)))
+				changeset_strs[event.username][event.key][event.value] += ('<a href="http://www.openstreetmap.org/changeset/%s" target="_blank">%s</a> (%s), ' % (str(event.changeset), str(event.changeset), str(event.timestamp)))
 			objects[event.username][event.key][event.value] += 1
 
 		for event in history:
