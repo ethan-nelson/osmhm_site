@@ -76,7 +76,7 @@
 			<br />
             <li><a href="${request.route_path('watch_whitelist')}">Users on whitelist</a></li>
             % endif
-            % if page_id is ('watch' or 'user_watch' or 'object_watch'):
+            % if update_time: 
 			<li>Last update: ${update_time}</li>
             % endif
           </ul>
