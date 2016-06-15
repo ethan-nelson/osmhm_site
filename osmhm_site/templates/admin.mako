@@ -6,7 +6,8 @@
 % if user and user.is_owner:
 <p><a href="${request.route_path('history_clear')}">Purge current full history</a></p>
 <p><a href="${request.route_path('watch_clear')}">Purge current watch list history</a></p>
-<p><a href="${request.route_path('admin_user_list')}">Edit registered users</a></p><br />
+<p><a href="${request.route_path('admin_user_list')}">Edit registered users</a></p>
+<p><a href="${request.route_path('admin_user_tags')}">Edit user tag groupings</a></p><br />
 % endif
 
 <p><a href="${request.route_path('watch_whitelist')}">View the users on the whitelist</a></p>

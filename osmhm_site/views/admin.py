@@ -10,6 +10,7 @@ from pyramid.httpexceptions import (
 from ..models import (
     DBSession,
     User,
+    User_Tags,
 )
 
 @view_config(route_name='admin', renderer='osmhm_site:templates/admin.mako',
@@ -55,3 +56,35 @@ def promote_owner(request):
 	DBSession.flush()
 
 	return HTTPFound(location=route_path('admin_user_list',request))
+
+
+@view_config(route_name='admin_user_tags', renderer='osmhm_site:templates/admin_user_tags.mako',
+             permission='super_admin')
+def admin_user_tags(request):
+        tags = DBSession.query(User_Tags).all()
+
+        return dict(page_id='tags', tags=tags)
+
+
+@view_config(route_name='add_user_tag', renderer='osmhm_site:templates/admin_user_tag_add.mako',
+             permission='super_admin')
+def add_user_tag(request):
+        if request.method == 'POST':
+             tag_to_add = User_Tags(name=request.POST.getone('addname'),
+                              description=request.POST.getone('adddescription'))
+
+             DBSession.add(tag_to_add)
+             DBSession.flush()
+
+             return HTTPFound(location=request.route_path('admin_user_tags'))
+
+        return dict(page_id='add_user_tag')
+
+
+@view_config(route_name='delete_user_tag', permission='super_admin')
+def delete_user_tag(request):
+        tag_to_delete = DBSession.query(User_Tags).get(request.matchdict['id'])
+        DBSession.delete(tag_to_delete)
+        DBSession.flush()
+
+        return HTTPFound(location=request.route_path('admin_user_tags'))

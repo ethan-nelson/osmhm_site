@@ -13,6 +13,7 @@ from ..models import (
     History_Users,
     File_List,
     User,
+    User_Tags,
 )
 
 @view_config(route_name='user_watch', renderer='osmhm_site:templates/user_watch.mako',
@@ -64,13 +65,20 @@ def user_watch_add(request):
                               email=request.POST.getone('addnotify'))
     
             DBSession.add(userToAdd)
+            for t in request.POST.keys():
+                if t[0:4] == 'tag_':
+                    tag = DBSession.query(User_Tags).get(t[4:])
+                    userToAdd.tags.append(tag)
+
             DBSession.flush()
 
             return HTTPFound(location=request.route_path('user_watch_list'))
         else:
             return HTTPUnauthorized()
 
-    return dict(page_id='user_watch_add')
+    tags = DBSession.query(User_Tags).all()
+
+    return dict(page_id='user_watch_add', tags=tags)
 
 @view_config(route_name='user_watch_delete', permission='edit_user_or_object')
 def user_watch_delete(request):

@@ -78,10 +78,16 @@ def main(global_config, **settings):
 	config.add_route('oauth_callback', '/oauth_callback')
 
 	config.add_route('admin', '/admin')
+
 	config.add_route('admin_user_list', '/admin/users')
 	config.add_route('promote_dwg','/admin/{id}/promote_dwg')
 	config.add_route('promote_admin','/admin/{id}/promote_admin')
 	config.add_route('promote_owner','/admin/{id}/promote_owner')
+
+        config.add_route('admin_user_tags', '/admin/tags')
+        config.add_route('add_user_tag', '/admin/tags/new')
+        config.add_route('delete_user_tag', '/admin/tags/{id}/delete')
+
 	config.add_route('admin_clear_history', '/admin/clear_history',request_method="DELETE")
 
 	config.scan()

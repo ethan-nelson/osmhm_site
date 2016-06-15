@@ -25,6 +25,15 @@
 				<span class="help-block">Please use a personal email address, not the DWG group address. This will not be displayed, and will only be used for notification.</span>
 			</div>
 		</div>
+% if tags:
+% for tag in tags:
+<div class="form-group">
+<div class="checkbox"><label><input type="checkbox" name="tag_${tag.id}">${tag.name}</label>
+<span class="help-block">${tag.description}</span>
+</div>
+</div>
+% endfor
+% endif
 		<div class="form-group">
 			<div class="col-lg-10 col-lg-offset-6">
 				<button class="btn btn-primary" type="submit" value="submit">Submit</button>

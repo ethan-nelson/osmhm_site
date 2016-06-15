@@ -7,6 +7,7 @@ from sqlalchemy import (
     Float,
     Boolean,
     ForeignKey,
+    Table,
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -16,6 +17,7 @@ from sqlalchemy.ext.hybrid import (
 )
 
 from sqlalchemy.orm import (
+    relationship,
     scoped_session,
     sessionmaker,
     )
@@ -44,6 +46,18 @@ class History_Filters(Base):
     timestamp = Column(Text, nullable=False)
     quantity = Column(Text, nullable=False)
 
+user_tags_table = Table(
+    'user_tags_table', Base.metadata,
+    Column('user_id', Integer, ForeignKey('watched_users.id')),
+    Column('tag', Integer, ForeignKey('user_tags.id')))
+
+class User_Tags(Base):
+    __tablename__ = 'user_tags'
+    id = Column(Integer, primary_key=True)
+    name = Column(Text)
+    description = Column(Text)
+    users = relationship("Watched_Users", secondary=user_tags_table)
+
 class Watched_Users(Base):
     __tablename__ = 'watched_users'
     id = Column(Integer, primary_key=True, nullable=False)
@@ -51,6 +65,7 @@ class Watched_Users(Base):
     reason = Column(Text)
     author = Column(Text)
     email = Column(Text)
+    tags = relationship("User_Tags", secondary=user_tags_table)
 
 class History_Users(Base):
     __tablename__ = 'history_users'
