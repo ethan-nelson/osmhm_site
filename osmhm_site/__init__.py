@@ -59,6 +59,10 @@ def main(global_config, **settings):
 	config.add_route('user_watch_add', '/user_watch/add')
 	config.add_route('user_watch_delete', '/user_watch/delete/{id}')
 
+        config.add_route('user_object_watch', '/user_object_watch')
+        config.add_route('user_object_watch_event_delete', '/user_object_watch_event/delete/{id}')
+        config.add_route('user_object_watch_clear', '/user_object_watch/clear')
+
 	config.add_route('object_watch', '/object_watch')
 	config.add_route('object_watch_event_delete', '/object_watch_event/delete/{id}')
 	config.add_route('object_watch_clear', '/object_watch/clear')

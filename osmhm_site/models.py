@@ -49,6 +49,7 @@ class History_Filters(Base):
 user_tags_table = Table(
     'user_tags_table', Base.metadata,
     Column('user_id', Integer, ForeignKey('watched_users.id')),
+    Column('user_object_id', Integer, ForeignKey('watched_users_objects.id')),
     Column('tag', Integer, ForeignKey('user_tags.id')))
 
 class User_Tags(Base):
@@ -76,6 +77,26 @@ class History_Users(Base):
     created = Column(BigInteger)
     modified = Column(BigInteger)
     deleted = Column(BigInteger)
+
+class Watched_Users_Objects(Base):
+    __tablename__ = 'watched_users_objects'
+    id = Column(Integer, primary_key=True, nullable=False)
+    username= Column(Text, nullable=False)
+    reason = Column(Text)
+    author = Column(Text)
+    email = Column(Text)
+    tags = relationship("User_Tags", secondary=user_tags_table)
+
+class History_Users_Objects(Base):
+    __tablename__ = 'history_users_objects'
+    id = Column(Integer, primary_key=True, nullable=False)
+    element = Column(Text, nullable=False)
+    key = Column(Text, nullable=False)
+    value = Column(Text, nullable=False)
+    username = Column(Text, nullable=False)
+    changeset = Column(BigInteger, nullable=False)
+    timestamp = Column(Text, nullable=False)
+    action = Column(Text)
 
 class Watched_Objects(Base):
     __tablename__ = 'watched_objects'
