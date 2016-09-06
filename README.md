@@ -1,20 +1,17 @@
-OpenStreetMap Hall Monitor
-==================
+OpenStreetMap Hall Monitor Site
+===============================
 
 Introduction
 ------------
 
-OpenStreetMap Hall Monitor (OSMHM) is a passive monitoring tool for OpenStreetMap. It boasts a suite of filters, including vandalism/spam/unauthorized import detection. OSMHM works by downloading and scanning hourly diff files from OSM.
-
-A Procfile is included for easy deployment to Heroku.
-
+This is a frontend for use with the [OSM Hall Monitor](https://github.com/ethan-nelson/osm_hall_monitor) monitoring package. Rather than using a command line to add things to track or to view log events, the website provides the ability to add any trackable things, review log events, and support restrictions to this data via OSM authentication. 
 
 Installing
----------------
+----------
 
-Note: Python and the virtualenv package are required.
+Note: Python is required and virtualenv is _strongly_ recommended..
 
-- cd osm-hall-monitor
+- cd osmhm_site
 
 - virtualenv env
 
