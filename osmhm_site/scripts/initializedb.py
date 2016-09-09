@@ -44,6 +44,3 @@ def main(argv=sys.argv):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
-    with transaction.manager:
-		filetime = File_List(sequence=24452,timestamp='2015-06-28T03:00:00Z',read=False)
-		DBSession.add(filetime)

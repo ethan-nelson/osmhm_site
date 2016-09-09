@@ -3,6 +3,7 @@ from sqlalchemy import (
     Index,
     Integer,
     BigInteger,
+    SmallInteger,
     Text,
     Float,
     Boolean,
@@ -55,7 +56,8 @@ class Watched_Users(Base):
 class History_Users(Base):
     __tablename__ = 'history_users'
     id = Column(Integer, primary_key=True, nullable=False)
-    username = Column(Text, nullable=False)
+    wid = Column(Integer, nullable=False)
+    userid = Column(BigInteger, nullable=False)
     changeset = Column(BigInteger, nullable=False)
     timestamp = Column(Text, nullable=False)
     created = Column(BigInteger)
@@ -73,11 +75,12 @@ class Watched_Objects(Base):
 class History_Objects(Base):
     __tablename__ = 'history_objects'
     id = Column(Integer, primary_key=True, nullable=False)
-    element = Column(Text, nullable=False)
+    wid = Column(Integer, nullable=False)
+    userid = Column(BigInteger, nullable=False)
     username = Column(Text, nullable=False)
     changeset = Column(BigInteger, nullable=False)
     timestamp = Column(Text, nullable=False)
-    action = Column(Text)
+    action = Column(SmallInteger, nullable=False)
 
 class Watched_Keys(Base):
     __tablename__ = 'watched_keys'
@@ -91,20 +94,23 @@ class Watched_Keys(Base):
 class History_Keys(Base):
     __tablename__ = 'history_keys'
     id = Column(Integer, primary_key=True, nullable=False)
+    wid = Column(Integer, nullable=False)
+    userid = Column(BigInteger, nullable=False)
     key = Column(Text, nullable=False)
     value = Column(Text, nullable=False)
+    element = Column(Text, nullable=False)
     username = Column(Text, nullable=False)
     changeset = Column(BigInteger, nullable=False)
     timestamp = Column(Text, nullable=False)
-    action = Column(Text)
+    action = Column(SmallInteger, nullable=False)
 
 class File_List(Base):
-	__tablename__ = 'file_list'
-	id = Column(Integer, primary_key=True, nullable=False)
-	sequence = Column(Text)
-	timestamp = Column(Text)
-	timetype = Column(Text)
-	read = Column(Boolean)
+    __tablename__ = 'file_list'
+    id = Column(Integer, primary_key=True, nullable=False)
+    sequence = Column(Text)
+    timestamp = Column(Text)
+    timetype = Column(Text)
+    read = Column(Boolean)
 
 class Whitelisted_Users(Base):
     __tablename__ = 'whitelisted_users'
