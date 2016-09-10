@@ -19,7 +19,7 @@ from ..models import (
              permission='watch_user_or_object')
 def user_watch(request):
 	try:
-		history = DBSession.query(History_Users).order_by(desc(History_Users.changeset)).all()
+		history = DBSession.query(History_Users, Watched_Users).join(Watched_Users, History_Users.wid == Watched_Users.id).order_by(desc(History_Users.changeset)).all()
 		filetime = DBSession.query(File_List).first()
 	except DBAPIError:
 		print 'Sorry'

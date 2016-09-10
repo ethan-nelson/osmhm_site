@@ -19,7 +19,7 @@ from ..models import (
              permission='watch_user_or_object')
 def key_watch(request):
 	try:
-		full_history = DBSession.query(History_Keys).order_by(desc(History_Keys.changeset)).all()
+		full_history = DBSession.query(History_Keys).join(Watched_Keys, History_Keys.wid == Watched_Keys.id).order_by(desc(History_Keys.changeset)).all()
 		history = DBSession.query(History_Keys).distinct(History_Keys.username, History_Keys.key, History_Keys.value).all()
 
 		changesets = {}
