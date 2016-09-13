@@ -16,14 +16,14 @@
 			<label for="addreason" class="col-lg-4 control-label">Reason:</label>
 			<div class="col-lg-6">
 				<input type="text" class="form-control" id="addreason" name="addreason" placeholder="e.g. Vandalised often" required>
-				<span class="help-block">This helps us remember...maybe a ticket reference from OTRS or that the object is part of some disputed region. Note this will be visible to DWG members.</span>
+				<span class="help-block">Enter a note to yourself why this object was added.</span>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="addnotify" class="col-lg-4 control-label">Notification email:</label>
 			<div class="col-lg-6">
 				<input type="text" class="form-control" id="addnotify" name="addnotify" placeholder="Email address (optional)">
-				<span class="help-block">Please use a personal email address, not the DWG group address. This will not be displayed, and will only be used for notification.</span>
+				<span class="help-block">Add an optional notification email address.</span>
 			</div>
 		</div>
 		<div class="form-group">

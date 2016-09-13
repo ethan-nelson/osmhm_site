@@ -120,16 +120,14 @@ class Whitelisted_Users(Base):
     author = Column(Text)
 
 MEMBER = 1
-DWGMEMBER = 2
-ADMIN = 3
-OWNER = 4
+ADMIN = 2
+OWNER = 3
 
 class User(Base):
     __tablename__ = 'registered_users'
     id = Column(BigInteger, primary_key=True)
     username = Column(Text)
     role_member = MEMBER
-    role_dwg = DWGMEMBER
     role_admin = ADMIN
     role_owner = OWNER
     role = Column(Integer)
@@ -147,8 +145,8 @@ class User(Base):
         return self.role is self.role_admin
 
     @hybrid_property
-    def is_dwg(self):
-        return self.role is self.role_dwg
+    def is_member(self):
+        return self.role is self.role_member
 
 
 class UnblockedUsers(Base):

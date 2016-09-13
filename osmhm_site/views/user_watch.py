@@ -50,7 +50,7 @@ def user_watch_list(request):
 
 	return dict(page_id='user_watch_list', users=users)
 
-@view_config(route_name='user_watch_add', renderer='osmhm_site:templates/admin_user_list_add.mako',
+@view_config(route_name='user_watch_add', renderer='osmhm_site:templates/user_watch_list_add.mako',
              permission='edit_user_or_object')
 def user_watch_add(request):
 
@@ -75,7 +75,7 @@ def user_watch_add(request):
 @view_config(route_name='user_watch_delete', permission='edit_user_or_object')
 def user_watch_delete(request):
     userToDelete = DBSession.query(Watched_Users).get(request.matchdict['id'])
-    eventsToDelete = DBSession.query(History_Users).filter_by(username=userToDelete.username).delete()
+    eventsToDelete = DBSession.query(History_Users).filter_by(wid=userToDelete.id).delete()
     DBSession.delete(userToDelete)
     DBSession.flush()
 

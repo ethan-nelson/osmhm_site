@@ -30,7 +30,7 @@
           <ul class="nav navbar-nav navbar-right">
 <!--            <li><a href="${request.route_path('history')}">Full history</a></li>
             <li><a href="${request.route_path('watch')}">Watch list</a></li> -->
-            % if user and (user.is_dwg or user.is_admin or user.is_owner):
+            % if user and (user.is_member or user.is_admin or user.is_owner):
             <li><a href="${request.route_path('user_watch')}">User watch list</a></li>
             <li><a href="${request.route_path('object_watch')}">Object watch list</a></li>
             <li><a href="${request.route_path('key_watch')}">Key watch list</a></li>

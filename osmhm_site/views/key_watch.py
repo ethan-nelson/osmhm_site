@@ -83,7 +83,7 @@ def key_watch_list(request):
 	return dict(page_id='key_watch_list', keys=keys)
 
 
-@view_config(route_name='key_watch_add', renderer='osmhm_site:templates/admin_key_list_add.mako',
+@view_config(route_name='key_watch_add', renderer='osmhm_site:templates/key_watch_list_add.mako',
              permission='edit_user_or_object')
 def key_watch_add(request):
     if request.method == 'POST':

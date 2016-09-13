@@ -26,12 +26,12 @@ def admin_user_list(request):
 
 	return dict(page_id='users', users=users)
 
-@view_config(route_name='promote_dwg', permission='super_admin')
+@view_config(route_name='promote_member', permission='super_admin')
 def promote_dwg(request):
 	userid = request.matchdict['id']
 	promuser = DBSession.query(User).get(userid)
 
-	promuser.role = User.role_dwg if not promuser.is_dwg else None
+	promuser.role = User.role_member if not promuser.is_member else None
 	DBSession.flush()
 
 	return HTTPFound(location=route_path('admin_user_list',request))

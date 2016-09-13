@@ -79,7 +79,7 @@ def main(global_config, **settings):
 
 	config.add_route('admin', '/admin')
 	config.add_route('admin_user_list', '/admin/users')
-	config.add_route('promote_dwg','/admin/{id}/promote_dwg')
+	config.add_route('promote_member','/admin/{id}/promote_member')
 	config.add_route('promote_admin','/admin/{id}/promote_admin')
 	config.add_route('promote_owner','/admin/{id}/promote_owner')
 	config.add_route('admin_clear_history', '/admin/clear_history',request_method="DELETE")

@@ -55,7 +55,7 @@ def object_watch_list(request):
 	return dict(page_id='object_watch_list', objects=objects)
 
 
-@view_config(route_name='object_watch_add', renderer='osmhm_site:templates/admin_object_list_add.mako',
+@view_config(route_name='object_watch_add', renderer='osmhm_site:templates/object_watch_list_add.mako',
              permission='edit_user_or_object')
 def object_watch_add(request):
     if request.method == 'POST':
@@ -80,7 +80,7 @@ def object_watch_add(request):
 @view_config(route_name='object_watch_delete', permission='edit_user_or_object')
 def object_watch_delete(request):
     objectToDelete = DBSession.query(Watched_Objects).get(request.matchdict['id'])
-    eventsToDelete = DBSession.query(History_Objects).filter_by(element=objectToDelete.element).delete()
+    eventsToDelete = DBSession.query(History_Objects).filter_by(wid=objectToDelete.id).delete()
     DBSession.delete(objectToDelete)
     DBSession.flush()
 
