@@ -19,6 +19,7 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 class RootFactory(object):
     __acl__ = [
         (Allow, Everyone, 'view'),
+        (Allow, 'group:member', 'watch_user_or_object'),
         (Allow, 'group:admin', 'watch_user_or_object'),
         (Allow, 'group:admin', 'edit_user_or_object'),
         (Allow, 'group:owner', 'watch_user_or_object'),
@@ -36,4 +37,6 @@ def group_membership(username, request):
             perms += ['group:owner']
         if user.is_admin:
             perms += ['group:admin']
+        if user.is_member:
+            perms += ['group:member']
     return perms
