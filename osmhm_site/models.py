@@ -51,6 +51,7 @@ class Watched_Users(Base):
     username = Column(Text, nullable=False)
     reason = Column(Text)
     author = Column(Text)
+    authorid = Column(BigInteger)
     email = Column(Text)
 
 class History_Users(Base):
@@ -70,6 +71,7 @@ class Watched_Objects(Base):
     element = Column(Text, nullable=False)
     reason = Column(Text)
     author = Column(Text)
+    authorid = Column(BigInteger)
     email = Column(Text)
 
 class History_Objects(Base):
@@ -89,6 +91,7 @@ class Watched_Keys(Base):
     value = Column(Text, nullable=False)
     reason = Column(Text)
     author = Column(Text)
+    authorid = Column(BigInteger)
     email = Column(Text)
 
 class History_Keys(Base):
@@ -118,6 +121,7 @@ class Whitelisted_Users(Base):
     username = Column(Text, nullable=False)
     reason = Column(Text)
     author = Column(Text)
+    authorid = Column(BigInteger)
 
 MEMBER = 1
 ADMIN = 2
