@@ -19,7 +19,8 @@ from ..models import (
              permission='watch_user_or_object')
 def user_watch(request):
 	try:
-		history = DBSession.query(History_Users, Watched_Users).join(Watched_Users, History_Users.wid == Watched_Users.id).order_by(desc(History_Users.changeset)).all()
+                userid = authenticated_userid(request)
+		history = DBSession.query(History_Users, Watched_Users).filter(Watched_Users.authorid == userid).join(Watched_Users, History_Users.wid == Watched_Users.id).order_by(desc(History_Users.changeset)).all()
 		filetime = DBSession.query(File_List).first()
 	except DBAPIError:
 		print 'Sorry'
@@ -39,7 +40,8 @@ def user_watch_event_delete(request):
              permission='watch_user_or_object')
 def user_watch_list(request):
 	try:
-		users = DBSession.query(Watched_Users).all()
+                userid = authenticated_userid(request)
+		users = DBSession.query(Watched_Users).filter(Watched_Users.authorid == userid).all()
 	except:
 		print 'Sorry'
 #	except DBAPIError:
@@ -59,6 +61,7 @@ def user_watch_add(request):
         if userid:
             user = DBSession.query(User).get(userid)
             userToAdd = Watched_Users(author=user.username,
+                              authorid=userid,
                               username=request.POST.getone('addusername'),
                               reason=request.POST.getone('addreason'),
                               email=request.POST.getone('addnotify'))
@@ -74,9 +77,14 @@ def user_watch_add(request):
 
 @view_config(route_name='user_watch_delete', permission='edit_user_or_object')
 def user_watch_delete(request):
+    userid = authenticated_userid(request)
+
     userToDelete = DBSession.query(Watched_Users).get(request.matchdict['id'])
-    eventsToDelete = DBSession.query(History_Users).filter_by(wid=userToDelete.id).delete()
-    DBSession.delete(userToDelete)
-    DBSession.flush()
+    if int(userToDelete.authorid) == int(userid):
+        DBSession.query(History_Users).filter_by(wid=userToDelete.id).delete()
+
+        DBSession.delete(userToDelete)
+        DBSession.flush()
 
     return HTTPFound(location=request.route_path('user_watch_list'))
+

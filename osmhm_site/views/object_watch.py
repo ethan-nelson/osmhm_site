@@ -19,8 +19,9 @@ from ..models import (
              permission='watch_user_or_object')
 def object_watch(request):
 	try:
-		history = DBSession.query(History_Objects, Watched_Objects).join(Watched_Objects, History_Objects.wid == Watched_Objects.id).order_by(desc(History_Objects.changeset)).all()
-		filetime = DBSession.query(File_List).first()
+                userid = authenticated_userid(request)
+	        history = DBSession.query(History_Objects, Watched_Objects).filter(Watched_Objects.authorid == userid).join(Watched_Objects, History_Objects.wid == Watched_Objects.id).order_by(desc(History_Objects.changeset)).all()
+	        filetime = DBSession.query(File_List).first()
 	except DBAPIError:
 		print 'Sorry'
 	if not history:
@@ -47,7 +48,8 @@ def object_watch_clear(request):
              permission='watch_user_or_object')
 def object_watch_list(request):
 	try:
-		objects = DBSession.query(Watched_Objects).all()
+                userid = authenticated_userid(request)
+		objects = DBSession.query(Watched_Objects).filter(Watched_Objects.authorid == userid).all()
 	except DBAPIError:
 		print 'Sorry'
 	if not objects:
@@ -63,6 +65,7 @@ def object_watch_add(request):
         if userid:
             user = DBSession.query(User).get(userid)
             objectToAdd = Watched_Objects(author=user.username,
+                                  authorid=userid,
                                   element=request.POST.getone('addobjectname'),
                                   reason=request.POST.getone('addreason'),
                                   email=request.POST.getone('addnotify'))
@@ -79,10 +82,14 @@ def object_watch_add(request):
 
 @view_config(route_name='object_watch_delete', permission='edit_user_or_object')
 def object_watch_delete(request):
+    userid = authenticated_userid(request)
+
     objectToDelete = DBSession.query(Watched_Objects).get(request.matchdict['id'])
-    eventsToDelete = DBSession.query(History_Objects).filter_by(wid=objectToDelete.id).delete()
-    DBSession.delete(objectToDelete)
-    DBSession.flush()
+    if int(objectToDelete.authorid) == int(userid):
+        DBSession.query(History_Objects).filter_by(wid=objectToDelete.id).delete()
+
+        DBSession.delete(objectToDelete)
+        DBSession.flush()
 
     return HTTPFound(location=request.route_path('object_watch_list'))
 

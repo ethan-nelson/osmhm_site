@@ -59,6 +59,7 @@ def watch_whitelist_add(request):
         if userid:
             user = DBSession.query(User).get(userid)
             userToAdd = Whitelisted_Users(author=user.username,
+                                  authorid=userid,
                                   username=request.POST.getone('addusername'),
                                   reason=request.POST.getone('addreason'))
 

@@ -19,8 +19,9 @@ from ..models import (
              permission='watch_user_or_object')
 def key_watch(request):
 	try:
-		full_history = DBSession.query(History_Keys).join(Watched_Keys, History_Keys.wid == Watched_Keys.id).order_by(desc(History_Keys.changeset)).all()
-		history = DBSession.query(History_Keys).distinct(History_Keys.username, History_Keys.key, History_Keys.value).all()
+                userid = authenticated_userid(request)
+		full_history = DBSession.query(History_Keys).filter(Watched_Keys.authorid == userid).join(Watched_Keys, History_Keys.wid == Watched_Keys.id).order_by(desc(History_Keys.changeset)).all()
+		history = DBSession.query(History_Keys).filter(Watched_Keys.authorid == userid).join(Watched_Keys, History_Keys.wid == Watched_Keys.id).distinct(History_Keys.username, History_Keys.key, History_Keys.value).all()
 
 		changesets = {}
 		changeset_strs = {}
@@ -75,7 +76,8 @@ def key_watch_clear(request):
              permission='watch_user_or_object')
 def key_watch_list(request):
 	try:
-		keys = DBSession.query(Watched_Keys).all()
+                userid = authenticated_userid(request)
+		keys = DBSession.query(Watched_Keys).filter(Watched_Keys.authorid == userid).all()
 	except DBAPIError:
 		print 'Sorry'
 	if not keys:
@@ -91,6 +93,7 @@ def key_watch_add(request):
         if userid:
             user = DBSession.query(User).get(userid)
             keyToAdd = Watched_Keys(author=user.username,
+                                  authorid=userid,
                                   key=request.POST.getone('addkey'),
                                   value=request.POST.getone('addvalue'),
                                   reason=request.POST.getone('addreason'),
@@ -108,10 +111,14 @@ def key_watch_add(request):
 
 @view_config(route_name='key_watch_delete', permission='edit_user_or_object')
 def key_watch_delete(request):
+    userid = authenticated_userid(request)
+
     keyToDelete = DBSession.query(Watched_Keys).get(request.matchdict['id'])
-    eventsToDelete = DBSession.query(History_Keys).filter_by(key=keyToDelete.key).delete()
-    DBSession.delete(keyToDelete)
-    DBSession.flush()
+    if int(keyToDelete.authorid) == int(userid):
+        DBSession.query(History_Keys).filter_by(key=keyToDelete.key).delete()
+
+        DBSession.delete(keyToDelete)
+        DBSession.flush()
 
     return HTTPFound(location=request.route_path('key_watch_list'))
 
