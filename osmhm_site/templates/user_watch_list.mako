@@ -2,7 +2,7 @@
 <%block name="header">
 </%block>
 <%block name="content">
-<h1 class="page-header">Users in List</h1>
+<h1 class="page-header">Users on List</h1>
 % if users:
 <table class="table table-condensed">
 <caption>Deleting a user also removes its listings in the user history.</caption>
@@ -15,6 +15,6 @@
 % endfor
 </table>
 % else:
-No users registered
+<p>None of the users you are watching have had any activity since the last update time.</p>
 % endif
 </%block>

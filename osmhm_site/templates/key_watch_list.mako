@@ -2,7 +2,7 @@
 <%block name="header">
 </%block>
 <%block name="content">
-<h1 class="page-header">Keys in List</h1>
+<h1 class="page-header">Tags on List</h1>
 % if keys:
 <table class="table table-condensed">
 <caption>Deleting a key also removes its listings in the key history.</caption>
@@ -17,6 +17,6 @@
 % endfor
 </table>
 % else:
-No keys registered
+<p>None of the key/values you are watching have had any activity since the last update time.</p>
 % endif
 </%block>

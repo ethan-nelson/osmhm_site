@@ -13,7 +13,7 @@
     background-color: #eee;
 }
 </style>
-<h1 class="page-header">Key Watch List</h1>
+<h1 class="page-header">Tag Activity List</h1>
 <p><b>Click a row to expand the actual changeset numbers.</b></p>
 % if history:
 <table class="table table-condensed" style="border-collapse:collapse;">

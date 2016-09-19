@@ -31,9 +31,9 @@
 <!--            <li><a href="${request.route_path('history')}">Full history</a></li>
             <li><a href="${request.route_path('watch')}">Watch list</a></li> -->
             % if user and (user.is_member or user.is_admin or user.is_owner):
-            <li><a href="${request.route_path('user_watch')}">User watch list</a></li>
-            <li><a href="${request.route_path('object_watch')}">Object watch list</a></li>
-            <li><a href="${request.route_path('key_watch')}">Key watch list</a></li>
+            <li><a href="${request.route_path('user_watch')}">User activity list</a></li>
+            <li><a href="${request.route_path('object_watch')}">Object activity list</a></li>
+            <li><a href="${request.route_path('key_watch')}">Tag activity list</a></li>
             <li><a href="${request.route_path('admin')}">Admin panel</a></li>
             % endif
             % if user:
@@ -50,19 +50,25 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar" style="margin-left: 0px !important;">
-			% if page_id is ('user_watch' or 'user_watch_add'):
+	    % if page_id is ('user_watch' or 'user_watch_add'):
             <li><a href="${request.route_path('user_watch_list')}">Users on list</a></li>
-            % elif page_id is 'user_watch_list':
             <li><a href="${request.route_path('user_watch_add')}">Add a user</a></li>
-			% elif page_id is ('object_watch' or 'object_watch_add'):
+            % elif page_id is 'user_watch_list':
+	    <li><a href="${request.route_path('user_watch')}">Return to user activity</a></li>
+            <li><a href="${request.route_path('user_watch_add')}">Add a user</a></li>
+	    % elif page_id is ('object_watch' or 'object_watch_add'):
             <li><a href="${request.route_path('object_watch_list')}">Objects on list</a></li>
+            <li><a href="${request.route_path('object_watch_add')}">Add an object</a></li>
             % elif page_id is 'object_watch_list':
+            <li><a href="${request.route_path('object_watch')}">Return to object activity</a></li>
             <li><a href="${request.route_path('object_watch_add')}">Add an object</a></li>
             % elif page_id is ('key_watch' or 'key_watch_add'):
-            <li><a href="${request.route_path('key_watch_list')}">Keys on list</a></li>
+            <li><a href="${request.route_path('key_watch_list')}">Tags on list</a></li>
+            <li><a href="${request.route_path('key_watch_add')}">Add a tag</a></li>
             <li><a href="${request.route_path('key_watch_clear')}">Clear this log</a></li>
             % elif page_id is 'key_watch_list':
-            <li><a href="${request.route_path('key_watch_add')}">Add a key</a></li>
+            <li><a href="${request.route_path('key_watch')}">Return to tag activity</a></li>
+            <li><a href="${request.route_path('key_watch_add')}">Add a tag</a></li>
             % elif page_id is 'watch_whitelist':
             <li><a href="${request.route_path('watch_whitelist_add')}">Add a whitelisted user</a></li>
 			% elif page_id is 'watch':
