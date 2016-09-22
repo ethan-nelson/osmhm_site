@@ -139,6 +139,7 @@ class User(Base):
     def __init__(self, id, username):
         self.id = id
         self.username = username
+        self.role = 1
 
     @hybrid_property
     def is_owner(self):
