@@ -26,7 +26,7 @@ requires = [
     ]
 
 setup(name='osmhm_site',
-      version='0.1',
+      version='0.5',
       description='osmhm_site',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
