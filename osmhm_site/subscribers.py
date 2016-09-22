@@ -18,5 +18,8 @@ def add_global(event):
     if user_id is not None:
         event['user'] = DBSession.query(User).get(user_id)
 
-    updatetime = DBSession.query(File_List).first()
-    updatetime = updatetime.timestamp
+    try:
+        updatetime = DBSession.query(File_List).first()
+        updatetime = updatetime.timestamp
+    except:
+        updatetime = 'Not run'
