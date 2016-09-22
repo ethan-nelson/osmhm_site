@@ -22,3 +22,8 @@ Note: Python is required and virtualenv is _strongly_ recommended..
 - env/bin/pserve development.ini
 
 Dependencies include [OSM Diff Tool](https://github.com/ethan-nelson/osm_diff_tool) and [OSM Hall Monitor](https://github.com/ethan-nelson/osm_hall_monitor).
+
+Deploying to Cloud Services
+---------------------------
+
+The repository contains a [Procfile](https://devcenter.heroku.com/articles/procfile) and sample scripts to run the web and process workers (including a custom SendGrid implementation). Once you deploy the repo, you will need to run the `initialize_db.py` script to prepare the database. Then, the first user to log in will be set as the server owner.
