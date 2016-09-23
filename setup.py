@@ -23,6 +23,7 @@ requires = [
     'oauth2',
     'osm_diff_tool',
     'osm_hall_monitor',
+    'sendgrid',
     ]
 
 setup(name='osmhm_site',
