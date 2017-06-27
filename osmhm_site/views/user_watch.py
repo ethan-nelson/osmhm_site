@@ -73,7 +73,32 @@ def user_watch_add(request):
         else:
             return HTTPUnauthorized()
 
-    return dict(page_id='user_watch_add')
+    return dict(page_id='user_watch_add', data=None)
+
+@view_config(route_name='user_watch_edit', renderer='osmhm_site:templates/user_watch_list_add.mako',
+             permission='edit_user_or_object')
+def user_watch_edit(request):
+    userid = authenticated_userid(request)
+    if userid:
+        entry = DBSession.query(Watched_Users).get(request.matchdict['id'])
+        if int(userid) != entry.authorid:
+            return HTTPUnauthorized()
+
+        if request.method == 'POST':
+            entry.username = request.POST.getone('addusername')
+            entry.reason = request.POST.getone('addreason')
+            entry.email = request.POST.getone('addnotify')
+
+            DBSession.add(entry)
+            DBSession.flush()
+
+            return HTTPFound(location=request.route_path('user_watch_list'))
+
+        else:
+            return dict(page_id='user_watch_add', data=entry)
+
+    else:
+        return HTTPUnauthorized()
 
 @view_config(route_name='user_watch_delete', permission='edit_user_or_object')
 def user_watch_delete(request):
