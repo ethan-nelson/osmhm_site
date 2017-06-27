@@ -65,6 +65,7 @@ def main(global_config, **settings):
 	config.add_route('object_watch_clear', '/object_watch/clear')
 	config.add_route('object_watch_list', '/object_watch/list')
 	config.add_route('object_watch_add', '/object_watch/add')
+        config.add_route('object_watch_edit', '/object_watch/edit/{id}')
 	config.add_route('object_watch_delete', '/object_watch/delete/{id}')
 
 	config.add_route('key_watch', '/key_watch')
