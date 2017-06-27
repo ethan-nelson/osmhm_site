@@ -12,3 +12,4 @@ env
 src
 sdist
 var
+local.ini
