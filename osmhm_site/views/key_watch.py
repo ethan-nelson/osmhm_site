@@ -106,7 +106,34 @@ def key_watch_add(request):
         else:
             return HTTPUnauthorized()
 
-    return dict(page_id='key_watch_add')
+    return dict(page_id='key_watch_add', data=None)
+
+
+@view_config(route_name='key_watch_edit', renderer='osmhm_site:templates/key_watch_list_add.mako',
+             permission='edit_user_or_object')
+def key_watch_edit(request):
+    userid = authenticated_userid(request)
+    if userid:
+        entry = DBSession.query(Watched_Keys).get(request.matchdict['id'])
+        if int(userid) != entry.authorid:
+            return HTTPUnauthorized()
+
+        if request.method == 'POST':
+            entry.key = request.POST.getone('addkey')
+            entry.value = request.POST.getone('addvalue')
+            entry.reason = request.POST.getone('addreason')
+            entry.email = request.POST.getone('addnotify')
+
+            DBSession.add(entry)
+            DBSession.flush()
+
+            return HTTPFound(location=request.route_path('key_watch_list'))
+
+        else:
+            return dict(page_id='key_watch_add', data=entry)
+
+    else:
+        return HTTPUnauthorized()
 
 
 @view_config(route_name='key_watch_delete', permission='edit_user_or_object')

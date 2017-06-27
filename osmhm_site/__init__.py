@@ -73,6 +73,7 @@ def main(global_config, **settings):
 	config.add_route('key_watch_clear', '/key_watch/clear')
 	config.add_route('key_watch_list', '/key_watch/list')
 	config.add_route('key_watch_add', '/key_watch/add')
+        config.add_route('key_watch_edit', '/key_watch/edit/{id}')
 	config.add_route('key_watch_delete', '/key_watch/delete/{id}')
 
 	config.add_route('login', '/login')
