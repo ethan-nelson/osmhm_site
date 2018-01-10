@@ -18,7 +18,7 @@ import oauth2 as oauth
 CONSUMER_KEY = 'IMjqoNHVuMaGOkIggHhasrqg08GcXULWtMjs742i'
 CONSUMER_SECRET = '11tXVQCp50NpG3IBVo3R4fYIpjgbq24tL2FUuDXX'
 
-BASE_URL = 'http://www.openstreetmap.org/oauth'
+BASE_URL = 'https://www.openstreetmap.org/oauth'
 REQUEST_TOKEN_URL = '%s/request_token' % BASE_URL
 ACCESS_TOKEN_URL = '%s/access_token' % BASE_URL
 AUTHORIZE_URL = '%s/authorize' % BASE_URL
