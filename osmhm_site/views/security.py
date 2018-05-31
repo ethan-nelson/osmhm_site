@@ -23,7 +23,7 @@ REQUEST_TOKEN_URL = '%s/request_token' % BASE_URL
 ACCESS_TOKEN_URL = '%s/access_token' % BASE_URL
 AUTHORIZE_URL = '%s/authorize' % BASE_URL
 
-USER_DETAILS_URL = 'http://api.openstreetmap.org/api/0.6/user/details'
+USER_DETAILS_URL = 'https://api.openstreetmap.org/api/0.6/user/details'
 
 consumer = oauth.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
 
